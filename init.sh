@@ -8,9 +8,9 @@ fi
 
 PROJECT_NAME=`basename "$PWD"`
 
-# Using @ instead of / because $PWD contains /'s
-sed -i "s@PROJECT_ROOT_VALUE@$PWD@g" nginx-proxy.conf
-sed -i "s/PROJECT_NAME_VALUE/$PROJECT_NAME/g" nginx-proxy.conf
-sed -i "s/PROJECT_NAME_VALUE/$PROJECT_NAME/g" nginx.conf
-sed -i "s/NGINX_PORT=80/NGINX_PORT=$NGINX_PORT/g" .env
-sed -i "s/PROJECT_NAME_VALUE/$PROJECT_NAME/g" .env
+# Using | instead of / because $PWD contains /'s
+sed "	s|PROJECT_ROOT_VALUE|$PWD|g 
+	s|PROJECT_NAME_VALUE|$PROJECT_NAME|g" nginx-proxy.conf.template > nginx-proxy.conf
+sed "s|PROJECT_NAME_VALUE|$PROJECT_NAME|g" nginx.conf.template > nginx.conf
+sed "	s|NGINX_PORT=80|NGINX_PORT=$NGINX_PORT|g
+	s|PROJECT_NAME_VALUE|$PROJECT_NAME|g" .env.template > .env
