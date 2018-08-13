@@ -2,10 +2,14 @@ version: '2'
 
 services:
   tao:
-    build: https://github.com/mrft/docker-tao.git  #alroniks/tao
+    build: https://github.com/mrft/docker-tao.git
+    ### while fiddling with docker repo I'm using the local version: 
+    #build: ../docker-tao
+    ### the original version pointed to a container published on docker 
+    #image: alroniks/tao
     restart: always
     volumes:
-      - .:/var/www/html
+      - ./docker_volumes/tao/var_www_html:/var/www/html
     links:
       - postgres
   web:
@@ -16,7 +20,7 @@ services:
     volumes_from:
       - tao
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./docker_volumes/web/nginx.conf:/etc/nginx/conf.d/default.conf
     links:
       - tao
 
